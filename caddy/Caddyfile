@@ -37,3 +37,21 @@
     errors stderr
     tls off
 }
+
+:9125 {
+    proxy / statsd:9125 {
+            transparent
+        }
+
+    errors stderr
+    tls off
+}
+
+:9102 {
+    proxy / statsd:9102 {
+            transparent
+        }
+
+    errors stderr
+    tls off
+}

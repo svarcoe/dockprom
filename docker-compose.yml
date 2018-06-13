@@ -125,12 +125,24 @@ services:
       - "9090:9090"
       - "9093:9093"
       - "9091:9091"
+      - "9102:9102"      
+      - "9125:9125"
     volumes:
       - ./caddy/:/etc/caddy/
     environment:
       - ADMIN_USER=${ADMIN_USER:-admin}
       - ADMIN_PASSWORD=${ADMIN_PASSWORD:-admin}
     restart: unless-stopped
+    networks:
+      - monitor-net
+    labels:
+      org.label-schema.group: "monitoring"
+  statsd:
+    image: prom/statsd-exporter
+    container_name: statsd
+    expose:
+      - 9102
+      - 9125    
     networks:
       - monitor-net
     labels:
