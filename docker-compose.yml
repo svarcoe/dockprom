@@ -55,7 +55,7 @@ services:
     volumes:
       - /proc:/host/proc:ro
       - /sys:/host/sys:ro
-      - /:/rootfs:ro
+      - /c:/rootfs:ro
     command:
       - '--path.procfs=/host/proc'
       - '--path.sysfs=/host/sys'
@@ -72,14 +72,14 @@ services:
     image: google/cadvisor:v0.28.3
     container_name: cadvisor
     volumes:
-      - /:/rootfs:ro
+      - /c:/rootfs:ro
       - /var/run:/var/run:rw
       - /sys:/sys:ro
       - /var/lib/docker/:/var/lib/docker:ro
       #- /cgroup:/cgroup:ro #doesn't work on MacOS only for Linux
     restart: unless-stopped
-    expose:
-      - 8080
+    ports:
+      - "8111:8080"
     networks:
       - monitor-net
     labels:
